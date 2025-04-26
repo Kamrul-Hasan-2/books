@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %}বাংলা লাইব্রেরি - হোম{% endblock %}
+
+{% block content %}
+<div class="row mb-5">
+    <div class="col-12">
+        <h1 class="bangla-text mb-4">বাংলা বই <span class="text-muted">(বাংলা বই)</span></h1>
+        <p class="lead">Read Bengali Books online free. PDF download is not required.</p>
+    </div>
+</div>
+
+<!-- Featured Books Section -->
+<section class="mb-5">
+    <h2 class="bangla-text mb-4">সাম্প্রতিক বই</h2>
+    <div class="row g-4">
+        {% for book in featured_books %}
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="card h-100 book-card">
+                <a href="{% url 'library:book_detail' book.id %}">
+                    {% if book.cover_image %}
+                    <img src="{{ book.cover_image.url }}" class="card-img-top" alt="{{ book.title }}">
+                    {% else %}
+                    <div class="placeholder-cover text-center py-5">
+                        <i class="fas fa-book fa-3x"></i>
+                    </div>
+                    {% endif %}
+                </a>
+                <div class="card-body">
+                    <h6 class="card-title bangla-text">{{ book.title }}</h6>
+                    <p class="card-text small text-muted">{{ book.author.name }}</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">No featured books available.</div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Categories Section -->
+<section class="mb-5">
+    <h2 class="bangla-text mb-4">ক্যাটেগরি</h2>
+    <div class="row g-3">
+        {% for category in categories %}
+        <div class="col-6 col-md-4 col-lg-3">
+            <a href="{% url 'library:category_books' category.slug %}" class="text-decoration-none">
+                <div class="card category-card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title bangla-text">{{ category.name }}</h5>
+                        <span class="badge bg-secondary">{{ category.books.count }} books</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">No categories available.</div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Recent Books Section -->
+<section class="mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="bangla-text mb-0">সাম্প্রতিক যোগ করা বই</h2>
+        <a href="{% url 'library:book_list' %}" class="btn btn-outline-primary">
+            <span class="bangla-text">সব দেখুন</span>
+        </a>
+    </div>
+    
+    <div class="row g-4">
+        {% for book in recent_books %}
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="card h-100 book-card">
+                <a href="{% url 'library:book_detail' book.id %}">
+                    {% if book.cover_image %}
+                    <img src="{{ book.cover_image.url }}" class="card-img-top" alt="{{ book.title }}">
+                    {% else %}
+                    <div class="placeholder-cover text-center py-5">
+                        <i class="fas fa-book fa-3x"></i>
+                    </div>
+                    {% endif %}
+                </a>
+                <div class="card-body">
+                    <h6 class="card-title bangla-text">{{ book.title }}</h6>
+                    <p class="card-text small text-muted">{{ book.author.name }}</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">No books available.</div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,83 @@
+/* General styles */
+body {
+    font-family: 'Noto Sans Bengali', Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.bangla-text {
+    font-family: 'Noto Sans Bengali', Arial, sans-serif;
+}
+
+/* Navigation */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Styles */
+.btn-purple {
+    background-color: #663399;
+    color: white;
+}
+.btn-purple:hover {
+    background-color: #5a2d87;
+    color: white;
+}
+
+/* Search Box */
+.search-box {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Book Cards */
+.book-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.book-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.placeholder-cover {
+    height: 200px;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+}
+
+/* Category Cards */
+.category-card {
+    transition: transform 0.2s;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #663399 0%, #8a63d2 100%);
+    color: white;
+}
+
+.category-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Book Reading Interface */
+.book-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .book-card .card-img-top {
+        height: 180px;
+    }
+}

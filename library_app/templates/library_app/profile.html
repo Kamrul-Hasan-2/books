@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <!-- Profile Sidebar -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow border-0 rounded-lg">
+                <div class="card-body text-center">
+                    <div class="profile-pic-wrapper mb-4">
+                        {% if user.profile.profile_picture %}
+                            <img src="{{ user.profile.profile_picture.url }}" class="rounded-circle img-fluid" style="width: 150px; height: 150px; object-fit: cover;">
+                        {% else %}
+                            <img src="{% static 'images/default.png' %}" class="rounded-circle img-fluid" style="width: 150px; height: 150px; object-fit: cover;">
+                        {% endif %}
+                    </div>
+                    <h4 class="mb-1">{{ user.username }}</h4>
+                    <p class="text-muted">{{ user.email }}</p>
+                    <p>{{ user.profile.bio|default:"" }}</p>
+                    
+                    <div class="d-grid gap-2 mt-4">
+                        <a href="{% url 'library_app:logout' %}" class="btn btn-danger">লগ আউট</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card shadow border-0 rounded-lg mt-4">
+                <div class="card-header bg-transparent border-0">
+                    <h5 class="mb-0">Reading Stats</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-3">
+                        <span>পড়া বই</span>
+                        <span class="badge bg-success rounded-pill">{{ user.profile.books_read|default:"0" }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span>বুকমার্কস</span>
+                        <span class="badge bg-primary rounded-pill">{{ user.profile.bookmarks|default:"0" }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Profile Content -->
+        <div class="col-md-8">
+            <div class="card shadow border-0 rounded-lg mb-4">
+                <div class="card-header bg-transparent border-0">
+                    <h5 class="mb-0">প্রোফাইল আপডেট</h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>ইউজারনেম</label>
+                                    {{ u_form.username }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>ইমেইল</label>
+                                    {{ u_form.email }}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label>প্রোফাইল পিকচার</label>
+                            {{ p_form.profile_picture }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label>বায়ো</label>
+                            {{ p_form.bio }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label>প্রিয় ক্যাটেগরি</label>
+                            {{ p_form.favorite_genre }}
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button class="btn btn-primary" type="submit">আপডেট প্রোফাইল</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="card shadow border-0 rounded-lg">
+                <div class="card-header bg-transparent border-0">
+                    <h5 class="mb-0">সাম্প্রতিক দেখা বই</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% for book in recent_books %}
+                            <div class="col-md-3 col-6 mb-3">
+                                <div class="card book-card h-100">
+                                    <div class="bg-light text-center p-3">
+                                        {% if book.cover_image %}
+                                            <img src="{{ book.cover_image.url }}" class="card-img-top" style="height: 120px; object-fit: contain;" alt="{{ book.title }}">
+                                        {% else %}
+                                            <div class="py-4">
+                                                <i class="fas fa-book fa-3x text-secondary"></i>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="card-body p-2">
+                                        <h6 class="card-title small mb-1">{{ book.title }}</h6>
+                                        <p class="card-text small text-muted mb-0">{{ book.author.name }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <div class="col-12">
+                                <p class="mb-0">আপনি এখনও কোন বই দেখেন নি।</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>বাংলা লাইব্রেরি</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <nav class="navbar navbar-expand-lg" style="background-color: #663399; color: white;">
+            <div class="container">
+                <a class="navbar-brand text-white" href="{% url 'library_app:home' %}">বাংলা লাইব্রেরি</a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{% url 'library_app:home' %}">নতুন সব বই</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{% url 'library_app:book_list' %}">লেখক</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{% url 'library_app:book_list' %}">সিরিজ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{% url 'library_app:book_list' %}">বইয়ের ধরন</a>
+                        </li>
+                    </ul>
+                    
+                    <div class="d-flex">
+                        <a href="{% url 'library_app:login' %}" class="btn text-white me-2" style="background-color: #5a2d8a; border-radius: 20px; padding: 8px 15px;">
+                            বুকমার্কস
+                        </a>
+                        <a href="{% url 'library_app:user_profile' %}" class="btn text-white" style="background-color: #5a2d8a; border-radius: 20px; padding: 8px 15px;">
+                            মাই অ্যাকাউন্ট →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Main Content -->
+    {% block content %}{% endblock %}
+    
+    <!-- Footer -->
+    <footer class="text-white py-4 mt-5" style="background-color: #663399;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>বাংলা লাইব্রেরি</h5>
+                    <p>বাংলা বইয়ের ডিজিটাল লাইব্রেরি</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>&copy; {% now "Y" %} বাংলা লাইব্রেরি। সর্বসত্ব সংরক্ষিত</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
